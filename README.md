@@ -9,9 +9,10 @@
 2. Asignamos nombre al proyecto
 3. Seleccionados vue
 4. Seleccionamos la opción de preferencia, en este caso JavaScript
-5. Nos vemos a la carpeta del proyecto desde la terminal
-6. Ejecutamos el comando npm install, para instalar las dependencias
-7. Ejecutamos el comando npm run dev, para iniciar el ambiente de desarrollo
+5. La forma corta para crear un proyecto y asi evitar los pasos anteriores es: `npm create vite@latest veterinaria -- --template vue`
+6. Nos movemos a la carpeta del proyecto desde la terminal
+7. Ejecutamos el comando npm install, para instalar las dependencias
+8. Ejecutamos el comando npm run dev, para iniciar el ambiente de desarrollo
 
 <br>
 <br>
@@ -297,3 +298,35 @@ const incrementar = () => {
 ```
 
 5. Si queremos pasar un dato de un componente hijo a un padre, le agregamos el valor desde el método $emit: `@click="$emit('agregar-carrito', guitarra)"`
+   <br><br>
+
+## Computed
+
+- Computed se encarga de mantener la reactivada
+- Se utiliza para definir propiedades calculadas en un componente. Las propiedades calculadas son propiedades que se derivan de una o más propiedades existentes y se recalculan automáticamente cada vez que cambian las propiedades de las que dependen. Esto es útil cuando se necesita realizar algún cálculo o transformación en función de los datos existentes en el componente, pero no se desea que el cálculo se realice manualmente en cada cambio de datos.
+
+```
+import { computed } from 'vue';
+
+const totalPagar = computed(() => {
+    return props.carrito.reduce((total, producto) => total + (producto.cantidad * producto.precio), 0);
+});
+```
+
+<br><br>
+
+## Watch
+
+- Es una función que le pasamos una dependencia, va a estar escuchando o viendo cierto state y cuando ese cambie va a ejecutar una función
+
+- Watch recibe opciones, el cual es el objecto de configuración, en este tenemos una propiedad deep, que al estar en true, se encargar de validar todos los atributos del objecto, para validar si hay un cambio o no
+
+```
+import { watch } from 'vue';
+
+watch(carrito, () => {
+    guardarLocalStorage();
+}, {
+    deep: true
+});
+```

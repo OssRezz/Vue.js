@@ -1,7 +1,7 @@
 <script setup>
 
 const props = defineProps({
-    guitarra: {
+    guitarraProps: {
         type: Object,
         required: true
     }
@@ -13,14 +13,14 @@ defineEmits(['agregar-carrito']);
 <template>
     <div class="col-md-6 col-lg-4 my-4 row align-items-center">
         <div class="col-4">
-            <img class="img-fluid" :src="`/img/${guitarra.imagen}.jpg`" :alt="`imagen guitarra ${guitarra.nombre}`">
+            <img class="img-fluid" :src="`/img/${guitarraProps.imagen}.jpg`" :alt="`imagen guitarraProps ${guitarraProps.nombre}`">
         </div>
         <div class="col-8">
-            <h3 class="text-black fs-4 fw-bold text-uppercase">{{ guitarra.nombre }}</h3>
+            <h3 class="text-black fs-4 fw-bold text-uppercase">{{ guitarraProps.nombre }}</h3>
             {{ numero }}
-            <p>{{ guitarra.descripcion }}</p>
-            <p class="fw-black text-primary fs-3">{{ guitarra.precio }}</p>
-            <button type="button" class="btn btn-dark w-100" @click="$emit('agregar-carrito', guitarra)">
+            <p>{{ guitarraProps.descripcion }}</p>
+            <p class="fw-black text-primary fs-3">{{ guitarraProps.precio }}</p>
+            <button type="button" class="btn btn-dark w-100" @click="$emit('agregar-carrito', guitarraProps)">
                 Agregar al Carrito
             </button>
         </div>

@@ -1,4 +1,5 @@
 <script setup>
+import { computed } from 'vue';
 const props = defineProps({
     carrito: {
         type: Array,
@@ -10,7 +11,11 @@ const props = defineProps({
     }
 });
 
-defineEmits(['aumentar-carrito', 'descontar-carrito', 'eliminar-Carrito', 'agregar-Guitarra']);
+defineEmits(['aumentar-carrito', 'descontar-carrito', 'eliminar-Carrito', 'agregar-Guitarra', 'vaciar-Carrito']);
+
+const totalPagar = computed(() => {
+    return props.carrito.reduce((total, producto) => total + (producto.cantidad * producto.precio), 0);
+});
 </script>
 
 <template>
@@ -42,7 +47,7 @@ defineEmits(['aumentar-carrito', 'descontar-carrito', 'eliminar-Carrito', 'agreg
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="guitarra in carrito">
+                                        <tr v-for="guitarra in carrito" :key="guitarra.id">
                                             <td>
                                                 <img class="img-fluid" :src="`/img/${guitarra.imagen}.jpg`"
                                                     :alt="`imagen guitarra ${guitarra.nombre}`">
@@ -72,8 +77,9 @@ defineEmits(['aumentar-carrito', 'descontar-carrito', 'eliminar-Carrito', 'agreg
                                     </tbody>
                                 </table>
 
-                                <p class="text-end">Total pagar: <span class="fw-bold">$899</span></p>
-                                <button class="btn btn-dark w-100 mt-3 p-2">Vaciar Carrito</button>
+                                <p class="text-end">Total pagar: <span class="fw-bold">${{ totalPagar }}</span></p>
+                                <button class="btn btn-dark w-100 mt-3 p-2" @click="$emit('vaciar-Carrito')">Vaciar
+                                    Carrito</button>
                             </div>
                         </div>
                     </div>
